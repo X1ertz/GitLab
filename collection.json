@@ -1,0 +1,155 @@
+{
+	"info": {
+		"_postman_id": "ed33858b-9542-4e40-921b-b18a83823e3d",
+		"name": "My API Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32645062"
+	},
+	"item": [
+		{
+			"name": "Get Users",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is an array\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('array');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201); // ตรวจสอบว่า status code คือ 201\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains user data\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('id');  // ตรวจสอบว่า response มี 'id'\r",
+							"    pm.expect(jsonData).to.have.property('name');  // ตรวจสอบว่า response มี 'name'\r",
+							"    pm.expect(jsonData).to.have.property('email');  // ตรวจสอบว่า response มี 'email'\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Name should not be empty\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.not.be.empty;  // ตรวจสอบว่า name ไม่เป็นค่าว่าง\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Email should not be empty\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.email).to.not.be.empty;  // ตรวจสอบว่า email ไม่เป็นค่าว่าง\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Name should not be null or undefined\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.not.be.oneOf([null, undefined]);  // ตรวจสอบว่า name ไม่เป็น null หรือ undefined\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Email should not be null or undefined\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.email).to.not.be.oneOf([null, undefined]);  // ตรวจสอบว่า email ไม่เป็น null หรือ undefined\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response should be an object\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('object');  // ตรวจสอบว่า response เป็น object\r",
+							"});\r"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"jackzaeiei\",\r\n    \"email\": \"jackzaeiei\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
